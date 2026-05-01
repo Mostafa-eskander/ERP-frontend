@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Navbar({onSideBarOpen}) {
     const { user,logout } = useAuthStore();
     const navigate = useNavigate();
-
+    
     const [mode,setMode] = useState(() => {
         return localStorage.getItem('theme') === 'dark'
     });

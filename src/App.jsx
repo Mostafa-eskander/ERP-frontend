@@ -11,10 +11,13 @@ import CustomersPage from "./pages/Customers/Customers";
 import SuppliersPage from "./pages/Suppliers/Suppliers";
 import PruchasesPage from "./pages/Purchases/Purchases";
 import OrdersPage from "./pages/Orders/Orders";
+import BranchesPage from "./pages/Branches/Branches";
+import UsersPage from "./pages/Users/Users";
 
 const router = createBrowserRouter([
   {path: '/',element: <RootPage />,children: [
-    {index: true,element: <Dashboard />},
+    {index: true, element: <Dashboard />},
+    {path: 'dashboard', element: <Dashboard />},
     {path: 'settings', element: <SettingsPage />},
     {path: 'products', element: <ProductsPage />},
     {path: 'categories', element: <Categories />},
@@ -22,6 +25,8 @@ const router = createBrowserRouter([
     {path: 'suppliers', element: <SuppliersPage />},
     {path: 'purchases', element: <PruchasesPage />},
     {path: 'orders', element: <OrdersPage />},
+    {path: 'branches', element: <BranchesPage /> },
+    {path: 'employees', element: <UsersPage />}
   ]},
   {path: 'login',element: <LoginPage />}
 ])

@@ -5,25 +5,40 @@ import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAuthStore from '../../store/appContext';
 
-const AllRoutes = [
-    {path: '/',icon: LayoutDashboard,label: "لوحة القيادة"},
-    {path: '/pos',icon: ShoppingCart,label: "نقطة البيع"},
-    {path: '/products',icon: Package,label: "المنتجات"},
-    {path: '/categories',icon: Layers,label: "الأقسام"},
-    {path: '/customers',icon: Users,label: "العملاء"},
-    {path: '/suppliers',icon: Truck,label: "الموردين"},
-    {path: '/orders',icon: ClipboardList,label: "المبيعات"},
-    {path: '/purchases',icon: ShoppingBag,label: "المشتريات"},
-    {path: '/branches',icon: Package,label: "الفروع"},
-    {path: '/employees',icon: LayoutDashboard,label: "الموظفين"},
-    {path: '/settings',icon: Settings,label: "الإعدادات"},
-]
+const RoleAccess = {
+  admin: ['/dashboard', '/pos', '/orders', '/products', '/categories', '/purchases', '/customers', '/suppliers', '/branches', '/users', '/settings'],
+  general_accountant: ['/dashboard', '/orders', '/purchases', '/customers', '/suppliers'],
+  branch_accountant: ['/dashboard', '/orders', '/purchases', '/customers', '/suppliers'],
+  branch_manager: ['/dashboard', '/pos', '/orders', '/products', '/categories', '/purchases', '/customers', '/suppliers'],
+  cashier: ['/pos', '/orders']
+};
+
 
 export default function Sidebar({sideBarMode,onSideBarOpen}) {
     const savedConfig = JSON.parse(localStorage.getItem('storeConfig'));
     const [storeName, setStoreName] = useState(savedConfig?.storeName || "");
     
     const {user} = useAuthStore();
+    
+    const userRole = user?.role || 'cashier';
+    const allowedRoutes = RoleAccess[userRole]|| RoleAccess.cashier;
+    
+    const AllRoutes = [
+        {path: '/dashboard',icon: LayoutDashboard,label: "لوحة القيادة"},
+        {path: '/pos',icon: ShoppingCart,label: "نقطة البيع"},
+        {path: '/products',icon: Package,label: "المنتجات"},
+        {path: '/categories',icon: Layers,label: "الأقسام"},
+        {path: '/customers',icon: Users,label: "العملاء"},
+        {path: '/suppliers',icon: Truck,label: "الموردين"},
+        {path: '/orders',icon: ClipboardList,label: "المبيعات"},
+        {path: '/purchases',icon: ShoppingBag,label: "المشتريات"},
+        {path: '/branches',icon: Package,label: "الفروع"},
+        {path: '/employees',icon: LayoutDashboard,label: "الموظفين"},
+        {path: '/settings',icon: Settings,label: "الإعدادات"},
+    ]
+    
+    
+    const filteredItems = AllRoutes.filter(item => allowedRoutes.includes(item.path));
 
     return(
         <aside className={sideBarMode ? classes.sidebar : `${classes.sidebar} ${classes.sideActive}`}>
@@ -32,7 +47,7 @@ export default function Sidebar({sideBarMode,onSideBarOpen}) {
                 <button className='btn' onClick={onSideBarOpen}><PanelRight /></button>
             </div>
             <nav className={classes.nav}>
-                {AllRoutes.map((route) => (
+                {filteredItems.map((route) => (
                     <NavLink
                         key={route.path}
                         to={route.path}

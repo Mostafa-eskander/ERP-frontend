@@ -117,7 +117,6 @@ export default function PruchasesPage() {
                         <th>التاريخ</th>
                         <th>المبلغ</th>
                         <th>الحالة</th>
-                        <th>التفاصيل</th>
                     </tr>
                 </thead>
                 <tbody>
