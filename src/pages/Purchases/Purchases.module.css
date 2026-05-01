@@ -1,0 +1,35 @@
+.name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.name svg {
+    color: var(--primary-color);
+}
+.price {
+    color: var(--danger-color) !important;
+}
+.status {
+    padding: 4px 10px;
+    border-radius: 50px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--secondary-color);
+    font-family: 600;
+    display: inline-flex;
+    align-items: center;
+}
+.balance {
+    margin: 15px 0 0;
+}
+.balance span {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white-color);
+    margin: 5px 0;
+}
+.btn {
+    width: 100%;
+    margin: 10px 0;
+}

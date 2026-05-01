@@ -1,0 +1,25 @@
+.date {
+    font-size: 12px !important;
+}
+.total {
+    color: var(--primary-color) !important;
+    font-size: 16px !important; 
+}
+.status {
+    padding: 4px 10px;
+    border-radius: 50px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--secondary-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title {
+    color: var(--text-primary);
+    margin: 10px 0;
+}

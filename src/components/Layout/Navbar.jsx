@@ -42,18 +42,14 @@ export default function Navbar({onSideBarOpen}) {
             </div>
             <div className={classes.leftHeader}>
                 <div className={classes.leftSection}>
-                    <button className={`btn ${classes.translation}`}>
-                        <Globe size={20} />
-                        <span>EN</span>
-                    </button>
                     <button className='btn' onClick={toggleMode}>
                         {mode ? <Sun size={20}/> : <Moon size={20} />}
                     </button>
-                    <div className={classes.notifContainer}>
+                    {/* <div className={classes.notifContainer}>
                         <button className='btn'>
                             <Bell size={20} />
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={classes.userInfo}>
                     <div className={classes.avatar}>

@@ -171,6 +171,7 @@ button {
     display: inline-block;
     margin-bottom: 10px;
 }
+.formGroup input,
 .formGroup select {
     width: 100%;
 }
@@ -250,6 +251,9 @@ button {
 .inpRowComp textarea {
   width: 100%;
   resize: none;
+}
+.inpRowComp select {
+  width: 100%;
 }
 .inpAdd label {
     color: var(--secondary-color);

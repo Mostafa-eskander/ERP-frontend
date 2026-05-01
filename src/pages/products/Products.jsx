@@ -133,7 +133,6 @@ export default function ProductsPage() {
     }
 
     async function handleDelete(id) {
-        api.delete('/products',id);
         if (window.confirm('هل تريد حذف المنتج')) {
         try {
             await api.delete(`/products/${id}`);

@@ -8,6 +8,9 @@ import ProductsPage from "./pages/products/Products";
 import LoginPage from "./pages/Login/Login";
 import Categories from "./pages/Categories/Categories";
 import CustomersPage from "./pages/Customers/Customers";
+import SuppliersPage from "./pages/Suppliers/Suppliers";
+import PruchasesPage from "./pages/Purchases/Purchases";
+import OrdersPage from "./pages/Orders/Orders";
 
 const router = createBrowserRouter([
   {path: '/',element: <RootPage />,children: [
@@ -15,7 +18,10 @@ const router = createBrowserRouter([
     {path: 'settings', element: <SettingsPage />},
     {path: 'products', element: <ProductsPage />},
     {path: 'categories', element: <Categories />},
-    {path: 'customers', element: <CustomersPage />}
+    {path: 'customers', element: <CustomersPage />},
+    {path: 'suppliers', element: <SuppliersPage />},
+    {path: 'purchases', element: <PruchasesPage />},
+    {path: 'orders', element: <OrdersPage />},
   ]},
   {path: 'login',element: <LoginPage />}
 ])

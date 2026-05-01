@@ -1,26 +1,26 @@
 import { Activity, CircleUser, Delete, Edit, Eye, Plus, Trash } from 'lucide-react';
 import SectionsHeader from '../../components/UI/SectionsHeader';
-import classes from './Customers.module.css';
 import SearchItem from '../../components/UI/SearchItem';
 import TableItem from '../../components/UI/Table';
 import { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import { toast } from 'react-toastify';
 import Modal from '../../components/UI/Modal';
+import classes from './Suppliers.module.css';
 
-export default function CustomersPage() {
-    const [customers,setCustomers] = useState([]);
+export default function SuppliersPage() {
+    const [suppliers,setSuppliers] = useState([]);
     const [loading,setLoading] = useState(true);
     const [submitting,setSubmitting] = useState(false);
     const [modalOpen,setModalOpen] = useState(false);
     const [search,setSearch] = useState('');
-    const [formData,setFormData] = useState({ id: null, name: '', phone: '', email: '', address: '' });
-    const [customerPayments,setCustomerPayments] = useState([]);
+    const [formData,setFormData] = useState({ id: null, name: '', contact_name: '', phone: '', email: '', address: '' });
+    const [suppliersPayments,setSuppliersPayments] = useState([]);
 
     async function fetchData() {
         try{
-            const {data} = await api.get('/customers');
-            setCustomers(data);
+            const {data} = await api.get('/suppliers');
+            setSuppliers(data);
         }catch(error) {
             console.log(error);
         }finally {
@@ -34,7 +34,7 @@ export default function CustomersPage() {
 
     function handleOpenModal(item = null) {
         if(item) setFormData(item);
-        else setFormData({ id: null, name: '', phone: '', email: '', address: '' });
+        else setFormData({ id: null, name: '', contact_name: '',phone: '', email: '', address: '' });
         setModalOpen(true);
     };
 
@@ -43,12 +43,12 @@ export default function CustomersPage() {
         setSubmitting(true);
         try {
             if(formData.id) {
-                await api.put(`/customers/${formData.id}`, formData);
+                await api.put(`/suppliers/${formData.id}`, formData);
                 setModalOpen(false);
                 fetchData();
                 toast.success('تم التعديل بنجاح',{position: 'bottom-right',autoClose:2000});
             }else {
-                await api.post('/customers', formData)
+                await api.post('/suppliers', formData)
                 setModalOpen(false);
                 fetchData();
                 toast.success('تم الحفظ بنجاح',{position: 'bottom-right',autoClose:2000});
@@ -61,9 +61,9 @@ export default function CustomersPage() {
     };
 
     async function handleDelete(id) {
-        if (window.confirm('هل تريد حذف العميل')) {
+        if (window.confirm('هل تريد حذف المورد')) {
             try {
-                await api.delete(`/customers/${id}`);
+                await api.delete(`/suppliers/${id}`);
                 fetchData();
                 toast.success('تم الحذف بنجاح',{position: 'bottom-right',autoClose: 2000});
             }catch(error) {
@@ -73,7 +73,7 @@ export default function CustomersPage() {
     };
 
     async function handlePay(customer) {
-        const {data} = await api.get(`/customers/${customer.id}`);
+        const {data} = await api.get(`/suppliers/${customer.id}`);
 
         const answer = window.prompt(`تسديد الدين - ${data.balance} - ${data.name}`);
         const answerFormatting = Number(answer);
@@ -83,7 +83,7 @@ export default function CustomersPage() {
             return;
         }
         try {
-            await api.post(`/customers/${customer.id}/pay`, {
+            await api.post(`/suppliers/${customer.id}/pay`, {
                 amount: answerFormatting,
                 payment_method: 'cash'  
             });
@@ -94,15 +94,15 @@ export default function CustomersPage() {
         }
 
     }
-    const filteredCustomers = customers.filter((customer) => 
-        customer.name.toLowerCase().includes(search.toLowerCase()) || 
-        customer.phone && customer.phone.includes(search)
+    const filteredSuppliers = suppliers.filter((supplier) => 
+        supplier.name.toLowerCase().includes(search.toLowerCase()) || 
+        supplier.phone && supplier.phone.includes(search)
     );
 
     if(loading) {
         return  (
             <div className='loadingWrapper'>
-                <Activity className='spin' size={48} color='var(--warning-color)' />
+                <Activity className='spin' size={48} color='var(--secondary-color)' />
             </div>
         )
     }
@@ -120,33 +120,32 @@ export default function CustomersPage() {
                     <tr>
                         <th>الاسم</th>
                         <th>رقم الهاتف</th>
+                        <th>التواصل</th>
                         <th>البريد الإلكتروني</th>
-                        <th>العنوان</th>
                         <th>المديونية (آجل)</th>
                         <th>الإجراءات</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredCustomers.map((customer) => {
-                        const customerBalance = Number(customer.balance);
-
+                    {filteredSuppliers.map((supplier) => {
+                        const suppliersBalance = Number(supplier.balance);
                         return (
-                        <tr key={customer.id}>
+                        <tr key={supplier.id}>
                             <td>
-                                <div className={classes.custName}>
+                                <div className={classes.suppName}>
                                     <CircleUser />
-                                    <span>{customer.name}</span>
+                                    <span>{supplier.name}</span>
                                 </div>
                             </td>
-                            <td>{customer.phone}</td>
-                            <td className={classes.tdOverFlow}>{customer.email}</td>
-                            <td>{customer.address}</td>
-                            <td className={customerBalance > 0 ? classes.balance : null}>{customer.balance}</td>
+                            <td>{supplier.phone}</td>
+                            <td>{supplier.contact_name}</td>
+                            <td className={classes.tdOverFlow}>{supplier.email}</td>
+                            <td className={suppliersBalance > 0 ? classes.balance : null}>{supplier.balance}</td>
                             <td>
                                 <div className='actionsCell'>
-                                    {customerBalance > 0 && <button className={`btn edit`} title='تحصيل' onClick={() => handlePay(customer)}><Activity size={18} /></button>}
-                                    <button className={`btn edit`} title='تعديل' onClick={() => handleOpenModal(customer)}><Edit size={18} /></button>
-                                    <button className={`btn delete`} title='حذف العميل' onClick={() => handleDelete(customer.id)}><Trash size={18} /></button>
+                                    {suppliersBalance > 0 && <button className={`btn edit`} title='تحصيل' onClick={() => handlePay(supplier)}><Activity size={18} /></button>}
+                                    <button className={`btn edit`} title='تعديل' onClick={() => handleOpenModal(supplier)}><Edit size={18} /></button>
+                                    <button className={`btn delete`} title='حذف العميل' onClick={() => handleDelete(supplier.id)}><Trash size={18} /></button>
                                 </div>
                             </td>
                         </tr>
@@ -157,21 +156,27 @@ export default function CustomersPage() {
                 <form onSubmit={handleSubmit}>
                     <div className='formGroupInp'>
                         <div className="inpRow">
-                            <label htmlFor="customerName">الاسم *</label>
-                            <input type='text' className='inp-primary' value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} name="customerName" id="customerName" required />
+                            <label htmlFor="supplierName">الاسم *</label>
+                            <input type='text' className='inp-primary' value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} name="supplierName" id="supplierName" required />
                         </div>
+                        <div className='inpRow'>
+                            <label htmlFor="supplierContent">التواصل</label>
+                            <input type="text" className='inp-primary' value={formData.contact_name} onChange={((e) => setFormData({...formData,contact_name: e.target.value}))} name="supplierContent" id="supplierContent" required />
+                        </div>
+                    </div>
+                    <div className='formGroupInp'>
                         <div className="inpRow">
-                            <label htmlFor="customerPhone">رقم الهاتف *</label>
-                            <input type='text' className='inp-primary' value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} name="customerPhone" id="customerPhone" required />
+                            <label htmlFor="supplierPhone">رقم الهاتف *</label>
+                            <input type='text' className='inp-primary' value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} name="supplierPhone" id="supplierPhone" required />
+                        </div>
+                        <div className='inpRow'>
+                            <label htmlFor='supplierEmail'>البريد الإلكتروني</label>
+                            <input type='email' className='inp-primary' value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}  name="supplierEmail" id="supplierEmail" />
                         </div>
                     </div>
                     <div className='inpRowComp'>
-                        <label htmlFor='customerEmail'>البريد الإلكتروني</label>
-                        <input type='email' className='inp-primary' value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}  name="customerEmail" id="customerEmail" />
-                    </div>
-                    <div className='inpRowComp'>
-                        <label htmlFor='customerAddress'>العنوان</label>
-                        <textarea className='inp-primary' value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} name="customerAddress" id="customerAddress"></textarea>
+                        <label htmlFor='supplierAddress'>العنوان</label>
+                        <textarea className='inp-primary' value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} name="supplierAddress" id="supplierAddress"></textarea>
                     </div>
                     <button className={`btn-primary ${classes.btnSubmit}`} type='submit' disabled={submitting}>
                         {submitting ? 'جاري الحفظ' : 'حفظ'}

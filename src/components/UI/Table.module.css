@@ -6,6 +6,11 @@
     max-height: 700px;
     overflow-x: auto;
 }
+.table h3 {
+    color: var(--text-secondary);
+    font-size: 22px;
+    padding: 10px;
+}
 .tableData {
     width: 100%;
     text-align: center;

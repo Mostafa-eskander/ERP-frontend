@@ -1,20 +1,20 @@
 .btnSubmit,
 .btn {
-    background-color: var(--warning-color) !important;
+    background-color: var(--secondary-color) !important;
 }
-.custName {
+.suppName {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.custName span {
+.suppName span {
     color: var(--text-primary)
+}
+.suppName svg {
+    color: var(--secondary-color);
 }
 .balance {
     color: var(--danger-color) !important;
-}
-.custName svg {
-    color: var(--warning-color);
 }
 .tdOverFlow {
     overflow-x: scroll;
