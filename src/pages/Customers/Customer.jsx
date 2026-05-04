@@ -82,7 +82,7 @@ export default function CustomerPage() {
         
             <div className={classes.customerRecord}>
                 <h2 className={classes.sectionHeader}>سجل العميل</h2>
-                <TableItem>
+                <TableItem emptyMessage={customerOrders.length === 0 ? 'لا يوجد سجل للعميل ' : ''}>
                     <thead>
                         <tr>
                             <th>معرفه العمليه</th>
@@ -106,7 +106,7 @@ export default function CustomerPage() {
                                     <td>{o.id}</td>
                                     <td className={classes.orderDate}>{new Date(o.created_at).toLocaleString()}</td>
                                     <td className={`${o.payment_method === 'cash' ? classes.cash : classes.card}`}>{o.payment_method}</td>
-                                    <td>{productNames}</td>
+                                    <td className={classes.productName}>{productNames}</td>
                                     <td>{o.grand_total}</td>
                                     <td>{o.paid_amount}</td>
                                     <td className={`${Number(o.due_amount) > 0 ? classes.dueAmount : ''}`}>${o.due_amount}</td>
@@ -124,7 +124,7 @@ export default function CustomerPage() {
 
             <div className={classes.customerTransactions}>
                 <h2 className={classes.sectionHeader}>سجل التعاملات الماليه</h2>
-                <TableItem>
+                <TableItem emptyMessage={payments.length === 0 ? 'لا يوجد سجل للعميل' : ''}>
                     <thead>
                         <tr>
                             <th>المعرف</th>

@@ -21,6 +21,9 @@
 .notBalance {
     color: var(--secondary-color);
 }
+.productName {
+    overflow-x: auto;
+}
 .btnEdit {
     width: fit-content;
     padding: 8px 16px;

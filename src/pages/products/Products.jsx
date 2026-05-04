@@ -163,7 +163,7 @@ export default function ProductsPage() {
                 <input onChange={(e) => setSearch(e.target.value)} type="text" className="inp-primary" name="inpSearch" id="inpSearch" placeholder="البحث بالاسم أو رمز SKU" />
             </SearchItem>
             
-            <TableItem>
+            <TableItem emptyMessage={filterProducts.length === 0 ? 'لا يوجد منتجات قم بالإضافة' : ''}>
                 <thead>
                         <tr>
                             <th className={classes.code}>رمز (SKU/Barcode)</th>

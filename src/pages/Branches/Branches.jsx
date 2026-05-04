@@ -71,12 +71,15 @@ export default function BranchesPage() {
     } 
 
     if(loading) return <div className='loadingWrapper'><Activity className='spin' size={48} style={{color: 'var(--primary-color)'}}/></div>
+   
     return (
         <div className={classes.branches}>
+
             <SectionsHeader title='إدارة الفروع' description='تتبع الفروع وموقعها في النظام'>
                 <button className='btn-primary' onClick={() => handleOpenModal()}><Plus size={18} /> أضافه فرع</button>
             </SectionsHeader>
-            <TableItem>
+
+            <TableItem emptyMessage={branches.length === 0 ? 'لا توجد فروع قم بالاضافة ' : ''}>
                 <thead>
                     <tr>
                         <th>المعرف</th>

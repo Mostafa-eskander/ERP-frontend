@@ -54,7 +54,8 @@ export default function OrdersPage() {
             <SearchItem>
                 <input type="text" className='inp-primary' name="inpSearch" id="inpSearch" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='بحث باسم العميل او الرقم التعريفي' />
             </SearchItem>
-            <TableItem>
+
+            <TableItem emptyMessage={filteredOrders.length === 0 ? 'لا توجد مبيعات اذهب الي POS لإضافه فاتوره' : ''}>
                 <thead>
                     <tr>
                         <th>المعرف</th>

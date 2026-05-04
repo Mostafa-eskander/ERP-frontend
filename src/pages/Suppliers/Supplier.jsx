@@ -82,7 +82,7 @@ export default function SupplierPage() {
                 
                 <div className={classes.customerRecord}>
                     <h2 className={classes.sectionHeader}>سجل المورد</h2>
-                    <TableItem>
+                    <TableItem emptyMessage={supplierOrders.length === 0 ? 'لا يوجد سجل للعميل' : ''}>
                         <thead>
                             <tr>
                                 <th>معرفه العمليه</th>
@@ -124,7 +124,7 @@ export default function SupplierPage() {
         
                 <div className={classes.customerTransactions}>
                     <h2 className={classes.sectionHeader}>سجل التعاملات الماليه</h2>
-                    <TableItem>
+                    <TableItem emptyMessage={payments.length === 0 ? 'لا يوجد سجل تعاملات تابع للعميل' : ''}>
                         <thead>
                             <tr>
                                 <th>المعرف</th>

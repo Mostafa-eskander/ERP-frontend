@@ -109,7 +109,7 @@ export default function PruchasesPage() {
             <SearchItem>
                 <input type="text" className='inp-primary' value={search} onChange={(e) => setSeartch(e.target.value)} name="inoSearch" id="inoSearch" placeholder='بحث باسم العميل او التاريخ' />
             </SearchItem>
-            <TableItem>
+            <TableItem emptyMessage={filterPruchases.length === 0 ? 'لا توجد مشتريات قم باضافة اول عملية' : ''}>
                 <thead>
                     <tr>
                         <th>المعرف</th>

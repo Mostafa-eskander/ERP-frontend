@@ -116,7 +116,7 @@ export default function CustomersPage() {
             <SearchItem>
                 <input value={search} onChange={(e) => setSearch(e.target.value)} className='inp-primary' type="text" id="customersSearch" placeholder='* اسم العميل' />
             </SearchItem>
-            <TableItem>
+            <TableItem emptyMessage={filteredCustomers.length === 0 ? 'لا يوجد عملاء قم بالإضافة' : ''}>
                 <thead>
                     <tr>
                         <th>الاسم</th>

@@ -28,6 +28,11 @@
     font-size: 27px;
     font-weight: 700;
 }
+.emptyMessage {
+    width: fit-content;
+    margin: 30px auto;
+    color: var(--text-secondary);
+}
 .pending {
     background-color: rgba(245, 158, 11, 0.15);
     color: var(--warning-color);
@@ -63,11 +68,5 @@
     background-color: rgba(239, 68, 68, 0.05);
     border-left: 3px solid var(--danger-color);
     border-radius: var(--radius-sm);
-    color: var(--text-primary);
-}
-.emptyState {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--text-primary);
 }

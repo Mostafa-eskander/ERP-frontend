@@ -349,7 +349,7 @@ function POSPage() {
 
             <div className={classes.balance}>
               <label htmlFor="balance">المبلغ المدفوع (اتركه فارغاً للدفع بالكامل)</label>
-              <input type="number" name="balance" id="balance" onChange={(e) => setPaidAmount(e.target.value)} placeholder={`Total : ${total.toFixed(2)}`} />
+              <input type="number" name="balance" id="balance" value={paidAmount} onChange={(e) => setPaidAmount(e.target.value)} placeholder={`Total : ${total.toFixed(2)}`} />
               {paidAmount !== '' && parseFloat(paidAmount) > 0 && parseFloat(paidAmount) < total && (
                 <p>الباقي (آجل): ${(total - parseFloat(paidAmount || 0)).toFixed(2)}</p>
               )}

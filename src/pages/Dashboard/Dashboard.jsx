@@ -114,6 +114,7 @@ export default function Dashboard() {
             <SectionsHeader title='لوحة القيادة' description='مرحباً بك! نظرة عامة على نشاط النظام'>
                 <button className='btn-primary' onClick={() => handleExport()}>تصدير <CloudDownload size={18} /></button>
             </SectionsHeader>
+
             <div className={classes.statsGrid}>
                 {statCards.map(s => (
                     <div key={s.title} className={classes.statGrid} style={{borderLeftColor : s.color}}>
@@ -127,7 +128,8 @@ export default function Dashboard() {
                     </div>
                 ))}
             </div>
-            <TableItem title='المبيعات'>
+            
+            <TableItem title='المبيعات' emptyMessage={stats.recent_orders.length === 0 ? 'لا توجد مبيعات' : ''}>
                 <thead>
                     <tr>
                         <th>المعرف</th>
@@ -155,6 +157,7 @@ export default function Dashboard() {
                     })}
                 </tbody>
             </TableItem>
+            
             <div className={classes.stockAlert}>
                 <h2><TriangleAlert size={20} /> تنبيهات نقص المخزون</h2>
                 {lowStock.map((s) => {
@@ -170,8 +173,12 @@ export default function Dashboard() {
                         </div>
                     ) 
                 })}
+                {lowStock.length === 0 && (
+                    <h4 className={classes.emptyMessage}>لا يوجد نقص في اي  منتج</h4>
+                )}
             </div>
-            <TableItem title={`إحصائيات وقيّم المخزون`}>
+
+            <TableItem title={`إحصائيات وقيّم المخزون`} emptyMessage={branches.length === 0 ? 'لا يوجد فروع' : ''}>
                 <thead>
                     <tr>
                         <th>الفرع</th>
@@ -180,7 +187,7 @@ export default function Dashboard() {
                     </tr>
                 </thead>
                 <tbody>
-                    {branches.length > 0 ? branches.map((b) => {
+                    {branches.map((b) => {
                         let totalItems = b.inventories ? b.inventories.length : 0;
                         let totalQty = b.inventories ? b.inventories.reduce((acc, item) => acc + parseInt(item.stock || 0), 0) : 0;
                         return (
@@ -190,9 +197,8 @@ export default function Dashboard() {
                                <td style={{color: 'var(--primary-color)', fontWeight: 'bold'}}>{totalQty}</td>
                             </tr>
                           )
-                        }) : (
-                            <tr><td colSpan="3" className={classes.emptyState}>لا يوجد فروع</td></tr>
-                        )}
+                        })
+                    }
                 </tbody>
             </TableItem>
         </div>

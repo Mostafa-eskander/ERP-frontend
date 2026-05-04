@@ -92,7 +92,7 @@ export default function Categories () {
             >
             <button className='btn-primary' onClick={() => handleOpenModal()}><Plus /> اضافة قسم</button>
             </SectionsHeader>
-            <TableItem>
+            <TableItem emptyMessage={categories.length === 0 ? 'لا توجد اقسام قم بالإضافة' : ''}>
                 <thead>
                     <tr>
                         <th>المعرف</th>

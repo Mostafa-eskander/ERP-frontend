@@ -116,7 +116,7 @@ export default function SuppliersPage() {
             <SearchItem>
                 <input value={search} onChange={(e) => setSearch(e.target.value)} className='inp-primary' type="text" id="customersSearch" placeholder='* اسم العميل' />
             </SearchItem>
-            <TableItem>
+            <TableItem emptyMessage={filteredSuppliers.length === 0 ? 'لا يوجد موردين قم بالإضافة' : ''}>
                 <thead>
                     <tr>
                         <th>الاسم</th>
